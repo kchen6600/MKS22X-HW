@@ -9,9 +9,9 @@ public class Recursion{
 	 return Math.abs(num - num2) < difference;
      }
      if (num == 0){
-	 return (Math.abs(num-num2)) / num < difference;
+	 return ((Math.abs(num-num2)) / num2) < difference;
      }
-     return (Math.abs(num - num2))/ num2 < difference;
+     return ((Math.abs(num - num2))/ num) < difference;
      
  }
 
@@ -37,7 +37,7 @@ public class Recursion{
  public static void main(String[]args){
      System.out.println(closeEnough(1.00000000000000001, 1.0));
      System.out.println(closeEnough(1.0000000001, 1.0));
-     System.out.println(closeEnough(0.0, 0.000001));
+     System.out.println(closeEnough(0, 0.000001));
      System.out.println(sqrt(4.0));
      System.out.println(closeEnough(sqrt(4.0),2));
      System.out.println(sqrt(100));
