@@ -143,7 +143,6 @@ public class QueenBoard{
 	
 
     public int getSolutionCount(){
-	int size = board.length;
 	return solutionCount;
     }
     
