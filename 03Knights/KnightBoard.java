@@ -19,7 +19,14 @@ public class KnightBoard{
     public String toString(){
 	for (int i = 0; i < board.length; i++){
 	    for (int j = 0; j <board[i].length; j++){
-		str += board[i][j] + " ";
+
+		if(board[i][j] / 10 >  0){
+		    str += board[i][j] + " ";
+		}
+		else{
+		    str += " "+ board[i][j] + " ";
+		}
+	        
 	    }
 	    str+= "\n";
 	}
@@ -91,7 +98,7 @@ public class KnightBoard{
     }
 
     public static void main(String[]args){
-	KnightBoard b = new KnightBoard(8,7);
+	KnightBoard b = new KnightBoard(4,4);
        	b.solve();
 	System.out.println(b);
     }
