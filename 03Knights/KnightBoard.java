@@ -5,6 +5,10 @@ public class KnightBoard{
     private int rowsize;
     private int colsize;
 
+    public static String name(){
+	return "Chen,Karen";
+    }
+    
     public KnightBoard(int startingRows, int startingCols){
 	board = new int[startingRows][startingCols];
 	for (int i = 0; i < board.length; i++){
