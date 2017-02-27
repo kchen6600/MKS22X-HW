@@ -20,6 +20,9 @@ public class Recursion{
      if (n < 0){
 	 throw new IllegalArgumentException();
      }
+     if (closeEnough(n, 0)){
+	 return 0;
+     }
      else{
 	 return sqrt2(n, 1);
      }
@@ -42,6 +45,7 @@ public class Recursion{
      System.out.println(closeEnough(sqrt(4.0),2));
      System.out.println(sqrt(100));
      System.out.println(sqrt(901));
+     System.out.println(sqrt(0.000000));
  }
 
 }
