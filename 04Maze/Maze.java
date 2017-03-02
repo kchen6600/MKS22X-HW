@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class Maze{
 
     private char[][]maze;
@@ -13,10 +17,48 @@ public class Maze{
       2. The maze has a border of '#' around the edges. So you don't have to check for out of bounds!
       3. When the file is not found OR there is no E or S then: print an error and exit the program.
     */
-    public Maze(String filename){
-        //COMPLETE CONSTRUCTOR
+    public Maze(String filename) throws FileNotFoundException{
+	animate = false;
+	try{
+	    File text = new File(filename);
+	    Scanner inf = new Scanner(text);
+	    int lineNumber = 1;
+	    boolean efound = false;
+	    boolean sfound = false;
+	    while (inf.hasNextLine()){
+		lineNumber++;
+		String line = inf.nextLine();
+		for (int r = 0; r < lineNumber; r++){
+		    for (int c = 0; c < line.length(); c++){
+			maze[r][c] = line.charAt(c);
+			if (line.charAt(c) == 'E'){
+			    efound = true;
+			}
+			if (line.charAt(c) == 'S'){
+			    sfound = true;
+			}
+		    }
+		}
+	    }
+	    if(!(efound && sfound)){
+		System.out.println("Missing E or S");
+		System.exit(0);
+	    }
+	}
+	catch(FileNotFoundException e){
+	    System.out.println("Invalid file!");
+	    System.exit(0);
+	}
     }
 
+    private void wait(int millis){ //ADDED SORRY!
+	try {
+            Thread.sleep(millis);
+         }
+         catch (InterruptedException e) {
+         }
+     }
+    
     public void setAnimate(boolean b){
         animate = b;
     }
