@@ -8,6 +8,8 @@ public class Maze{
     private boolean animate;
     private int srow;
     private int scol;
+    private boolean sfound = false;
+    private boolean efound = false;
 
     /*Constructor loads a maze text file, and sets animate to false by default.
       1. The file contains a rectangular ascii maze, made with the following 4 characters:
@@ -19,38 +21,46 @@ public class Maze{
       2. The maze has a border of '#' around the edges. So you don't have to check for out of bounds!
       3. When the file is not found OR there is no E or S then: print an error and exit the program.
     */
-    public Maze(String filename) throws FileNotFoundException{
+    public Maze(String filename){
 	animate = false;
 	try{
-	    File textfile = new File(filename);
-	    Scanner scan = new Scanner(textfile);
-	    int lineNumber = 1;
-	    boolean efound = false;
-	    boolean sfound = false;
+	    File f = new File(filename);
+	    Scanner scan = new Scanner(f);
+	    int linerow = 0;
+	    int linecol = 0;
 	    while (scan.hasNextLine()){
-		lineNumber++;
-		String line = scan.nextLine();
-		for (int r = 0; r < lineNumber; r++){
-		    for (int c = 0; c < line.length(); c++){
-			maze[r][c] = line.charAt(c);
-			if (line.charAt(c) == 'E'){
-			    efound = true;
-			}
-			if (line.charAt(c) == 'S'){
-			    sfound = true;
-			    srow = r;
-			    scol = c;
-			}
-		    }
-		}
+		linerow++;
+		linecol = scan.nextLine().length();
 	    }
-	    if(!(efound && sfound)){
-		System.out.println("Missing E or S");
+	    
+	    maze = new char[linerow][linecol];
+	    
+	    Scanner scan2 = new Scanner(f);
+	    int row = 0;
+	    while(scan2.hasNextLine()){
+		String rowchar = scan2.nextLine();
+		
+		for(int c = 0; c < rowchar.length(); c++){
+		    if(rowchar.charAt(c) == 'S'){
+			srow = row;
+			scol = c;
+			sfound = true;
+		    }
+		    if(rowchar.charAt(c) == 'E'){
+			efound = true;
+		    }
+		    maze[row][c] = rowchar.charAt(c);
+		}
+		row+=1;
+	    }
+	    
+	    if (sfound == false || efound == false){
+	        System.out.println("Missing S or E");
 		System.exit(0);
 	    }
 	}
-	catch(FileNotFoundException e){
-	    System.out.println("Invalid file!");
+	catch(Exception e){
+	    System.out.println("Invalid file");
 	    System.exit(0);
 	}
     }
@@ -77,11 +87,14 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public boolean solve(){
-            int startr=srow,startc=scol;
-            //Initialize starting row and startint col with the location of the S. 
-            maze[startr][startc] = ' ';//erase the S, and start solving!
-            return solve(startr,startc);
+        
+        //Initialize starting row and startint col with the location of the S.
+        
+        maze[srow][scol] = ' ';//erase the S, and start solving!
+        return solve(srow,scol);
     }
+
+    
 
     /*
       Recursive Solve function:
@@ -102,36 +115,42 @@ public class Maze{
             wait(20);
         }
 
-	maze[row][col] = '@';
 	
 	if(maze[row][col] == 'E'){
 	    return true;
 	}
        
-	if(maze[row][col+1] == ' '){
-	    solve(row, col+1);
-	}
-
-	if(maze[row+1][col] == ' '){
-	    solve(row+1, col);
-	}
-
-	if(maze[row][col-1] == ' '){
-	    solve(row, col-1);
-	}
-
-	if(maze[row-1][col] == ' '){
-	    solve(row-1, col);
-	}
-
-	else{
+	if(maze[row][col] == ' '){
+	    maze[row][col] = '@';
+	    if (solve(row+1, col)){
+		return true;
+	    }
+	    if (solve(row, col-1)){
+		return true;
+	    }
+	    if (solve(row-1, col)){
+		return true;
+	    }
+	    if (solve (row, col+1)){
+		return true;
+	    }
 	    maze[row][col] = '.';
 	}
-
-
+        
 	
         //COMPLETE SOLVE
         return false; //so it compiles
+    }
+
+    public String toString(){
+	String str = "";
+	for (int r= 0; r < maze.length; r++){
+	    for (int c=0; c < maze[r].length; c++){
+		str += maze[r][c];
+	    }
+	    str += "\n";
+	}
+	return str;
     }
 
 }
