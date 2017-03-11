@@ -2,65 +2,83 @@ import java.io.*;
 import java.util.*;
 
 public class USACO {
-    private static int[][] lakeGrid;
+    private int[][] lakeGrid;
+    private int r;
+    private int c;
+    private int e;
+    private int n;
 
-    public static int bronze(String filename) {
+    public int bronze(String filename) {
+
 	Scanner sc = null;
 	try {
 	    File f = new File(filename);
-	    Scanner sc = new Scanner(f);
+	    sc = new Scanner(f);
 	}
 	catch(Exception e){
 	    System.out.println("File not found!");
 	    System.exit(0);
 	}
+
 	    Scanner firstline = new Scanner(sc.nextLine());
-	    int r = Integer.parseInt(firstline.next());
-	    int c = Integer.parseInt(firstline.next());
-	    int e = Integer.parseInt(firstline.next());
-	    int n = Integer.parseInt(firstline.next());
+	    r = Integer.parseInt(firstline.next());
+	    c = Integer.parseInt(firstline.next());
+	    e = Integer.parseInt(firstline.next());
+	    n = Integer.parseInt(firstline.next());
 	    
 	    lakeGrid = new int[r][c];
-
+	
 	    for (int i = 0; i < r; i++){
+		Scanner next = new Scanner(sc.nextLine());
 		for (int j = 0; j < c; j++){
-		    lakeGrid[i][j] = Integer.parseInt(sc.next());
+		    lakeGrid[i][j] = next.nextInt();
 		}
 	    }
-	    for (int ins = 0; ins < n; ins++){
-		int row = Integer.parseInt(sc.next());
-		int col = Integer.parseInt(sc.next());
-		int depth = Integer.parseInt(sc.next());
-		stomp(row, col, depth);
+
+	    while (sc.hasNextLine()){
+		Scanner ins = new Scanner(sc.nextLine());
+		int row = ins.nextInt() -1;
+		int col = ins.nextInt() -1;
+		int depth = ins.nextInt();
+	        int height = stomp(row, col, depth);
+		
+		for (int i = row; i < row+3; i++){
+		    for(int j = col; j < col+3; j++){
+			if (lakeGrid[i][j] > height){
+			    lakeGrid[i][j] = height;
+			}
+		    }
+		}
 	    }
 	    return volume(e);
     }
 
-    private static void stomp(int row, int col, int depth ) {
+    private int stomp(int row, int col, int depth ) {
 	int mrow = row;
 	int mcol = col;
 	int m = lakeGrid[row][col];
-	for(int r = row; r < row + 3; r++){
-	    for(int c = col; c < col + 3; c++){
-		if (lakeGrid[r][c] > m){
-		    m = lakeGrid[r][c];
-		    mrow = r;
-		    mcol = c;
+	for(int i = row; i < row + 3; i++){
+	    for(int j = col; j < col + 3; j++){
+		if (lakeGrid[i][j] > m){
+		    m = lakeGrid[i][j];
+		    mrow = i;
+		    mcol = j;
 		}
 	    }
 	}
 	lakeGrid[mrow][mcol] -= depth;
-	int ans = m - depth;
-	//	return ans;
+        int ans = m - depth;
+       	return ans;
 
     }
 
-    private static int volume(int elev){
+    private int volume(int elev){
 	int total = 0;
-	for (int r = 0; r < lakeGrid.length; r++){
-	    for(int c = 0; c < lakeGrid[r].length; c++){
-		if (c < elev){
-		    total += elev - c;
+
+	for(int i = 0; i < r; i++){
+	    for(int j = 0; j <c; j++){
+		if(lakeGrid[i][j] < e){
+		    total += e - lakeGrid[i][j];
 		}
 	    }
 	}
@@ -69,5 +87,6 @@ public class USACO {
     
     }
 
+  
     
 }
