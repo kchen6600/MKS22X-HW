@@ -130,7 +130,7 @@ public class USACO {
 		}
 	        else{
 		    pastureGrid[i][j] = 0;
-		    pastureGrid2 = 0;
+		    pastureGrid2[i][j] = 0;
 		}
 	    }
 	}
@@ -140,7 +140,7 @@ public class USACO {
 	endr = sc.nextInt()-1;
 	endc = sc.nextInt()-1;
 
-	return -1;
+	return solvewalks();
     }
 
     private int solvewalks(){
@@ -149,16 +149,16 @@ public class USACO {
 	    for (int j = 0; j < numr; j++){
 		for(int k = 0; k < numc; k++){
 		    int total = 0;
-		    if(pastureGrid[j][k+1]!= -1 && k+1 < numc){
+		    if(k+1<numc && pastureGrid[j][k+1]!= -1){
 			total += pastureGrid[j][k+1];
 		    }
-		    if(pastureGrid[j][k-1]!= -1 && k-1 >= 0){
+		    if(k-1 >= 0 && pastureGrid[j][k-1]!= -1){
 			total += pastureGrid[j][k-1];
 		    }
-		    if(pastureGrid[j+1][k]!= -1 && j+1 < numr){
+		    if(j+1 < numr && pastureGrid[j+1][k]!= -1){
 			total += pastureGrid[j+1][k];
 		    }
-		    if(pastureGrid[j-1][k]!= -1 && j-1 >= 0){
+		    if(j-1 >= 0 && pastureGrid[j-1][k]!= -1){
 			total += pastureGrid[j-1][k];
 		    }
 		    if(pastureGrid[j][k]!=-1){
@@ -166,8 +166,9 @@ public class USACO {
 		    }
 		}
 	    }
+	    update();
 	}
-	
+	return pastureGrid[endr][endc];
 		
     }
 
