@@ -144,7 +144,31 @@ public class USACO {
     }
 
     private int solvewalks(){
+	pastureGrid[startr][startc] = 1;
+	for(int i = 0; i < t; i++){
+	    for (int j = 0; j < numr; j++){
+		for(int k = 0; k < numc; k++){
+		    int total = 0;
+		    if(pastureGrid[j][k+1]!= -1 && k+1 < numc){
+			total += pastureGrid[j][k+1];
+		    }
+		    if(pastureGrid[j][k-1]!= -1 && k-1 >= 0){
+			total += pastureGrid[j][k-1];
+		    }
+		    if(pastureGrid[j+1][k]!= -1 && j+1 < numr){
+			total += pastureGrid[j+1][k];
+		    }
+		    if(pastureGrid[j-1][k]!= -1 && j-1 >= 0){
+			total += pastureGrid[j-1][k];
+		    }
+		    if(pastureGrid[j][k]!=-1){
+			pastureGrid2[j][k] = total;
+		    }
+		}
+	    }
+	}
 	
+		
     }
 
 }
