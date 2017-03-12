@@ -126,9 +126,11 @@ public class USACO {
 	    for(int j = 0; j < numc; j++){
 		if(next.charAt(j) == '*'){
 		    pastureGrid[i][j] = -1;
+		    pastureGrid2[i][j] = -1;
 		}
-		if(next.charAt(c) == '.'){
+	        else{
 		    pastureGrid[i][j] = 0;
+		    pastureGrid2 = 0;
 		}
 	    }
 	}
@@ -137,7 +139,12 @@ public class USACO {
 	startc = sc.nextInt()-1;
 	endr = sc.nextInt()-1;
 	endc = sc.nextInt()-1;
+
+	return -1;
     }
 
-    return -1;
+    private int solvewalks(){
+	
+    }
+
 }
