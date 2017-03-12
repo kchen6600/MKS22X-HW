@@ -142,7 +142,13 @@ public class USACO {
 
 	return solvewalks();
     }
-
+    private void update(){
+	for(int r = 0; r < numr; r++){
+	    for(int c = 0; c < numc; c++){
+		pastureGrid[r][c] = pastureGrid2[r][c];
+	    }
+	}
+    }
     private int solvewalks(){
 	pastureGrid[startr][startc] = 1;
 	for(int i = 0; i < t; i++){
