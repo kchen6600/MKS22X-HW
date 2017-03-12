@@ -8,6 +8,17 @@ public class USACO {
     private int e;
     private int n;
 
+    public USACO(){
+    }
+
+    public static String name(){
+	return "Chen,Karen";
+    }
+
+    /**
+       partner: Evan Chen
+    **/
+
     public int bronze(String filename) {
 
 	Scanner sc = null;
@@ -87,6 +98,46 @@ public class USACO {
     
     }
 
-  
-    
+    private int numr, numc, t, startr, startc, endr, endc;
+    private int[][]pastureGrid;
+    private int[][]pastureGrid2;
+    public int silver(String filename){
+
+	Scanner sc = null;
+	try {
+	    File f = new File(filename);
+	    sc = new Scanner(f);
+	}
+	catch(Exception e){
+	    System.out.println("File not found!");
+	    System.exit(0);
+	}
+
+	Scanner firstline = new Scanner(sc.nextLine());
+        numr = Integer.parseInt(firstline.next());
+	numc = Integer.parseInt(firstline.next());
+        t = Integer.parseInt(firstline.next());
+
+	pastureGrid = new int[numr][numc];
+	pastureGrid2 = new int[numr][numc];
+
+	for(int i = 0; i < numr; i++){
+	    String next = sc.next();
+	    for(int j = 0; j < numc; j++){
+		if(next.charAt(j) == '*'){
+		    pastureGrid[i][j] = -1;
+		}
+		if(next.charAt(c) == '.'){
+		    pastureGrid[i][j] = 0;
+		}
+	    }
+	}
+
+	startr = sc.nextInt()-1;
+	startc = sc.nextInt()-1;
+	endr = sc.nextInt()-1;
+	endc = sc.nextInt()-1;
+    }
+
+    return -1;
 }
