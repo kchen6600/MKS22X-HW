@@ -31,15 +31,32 @@ public class Quick{
 
 
     public static int quickselect(int[]data, int k){
-	return -1;
+	return quickhelper(data, k, 0, data.length);
+    }
+
+
+    public static int quickhelper(int[]data, int k, int start, int end){
+	int pivotindex = part(data, 0, data.length);
+	if (pivotindex == k){
+	    return data[k];
+	}
+	else if(k > pivotindex){
+	    return quickhelper(data, k, start, pivotindex-1);
+	}
+	else{
+	    return quickhelper(data, k, pivotindex-1, end);
+	}
     }
     public static void main(String[]args){
 
 	int[] arr = new int[]{1, 3, 10, 11, 2, 5, 0, 8, 7};
-	System.out.println(part(arr,0,9));
+	//System.out.println(part(arr,0,9));
 	for(int i = 0; i < arr.length; i++){
-	    System.out.print(arr[i]+" ");
+	    // System.out.print(arr[i]+" ");
+	    System.out.println(quickselect(arr,i));
 	}
+
+	
     }
 
     
