@@ -45,7 +45,7 @@ public class Quick{
     }
 
 
-    public static int select(int[]data, int k){
+    public static int quickselect(int[]data, int k){
 	return quickhelper(data, k, 0, data.length-1);
     }
 
@@ -66,6 +66,19 @@ public class Quick{
         }
 
     }
+
+    public static void quicksort(int[] data){
+	quicksortH(data, 0, data.length-1);
+    }
+
+    public static void quicksortH(int[] data, int start, int end){
+
+	if (end > start){
+	    int i = part(data, start, end);
+	    quicksortH(data, i+1, end);
+	    quicksortH(data, start, i-1);
+	}
+    }
    
     public static void main(String[]args){
 
@@ -81,10 +94,11 @@ public class Quick{
 	System.out.println(select(arr, 4));
 	System.out.println(select(arr, 5));
 	**/
-       
+	quicksort(arr);
+	
 	for(int i = 0; i < arr.length; i++){
-	    // System.out.print(arr[i]+" ");
-	    System.out.println(select(arr,i));
+	    System.out.print(arr[i]+" ");
+	    // System.out.println(quickselect(arr,i));
       	}
 	
 
