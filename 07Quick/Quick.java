@@ -1,6 +1,10 @@
 import java.util.*;
 public class Quick{
 
+    public static String name(){
+	return "Chen,Karen";
+    }
+
     public static void swap(int[]data, int first, int second){
 	int t = data[first];
 	data[first] = data[second];
