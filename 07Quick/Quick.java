@@ -14,6 +14,8 @@ public class Quick{
 
     public static int part(int[] data, int start, int end){
 
+
+	/**
 	if (start == end){
 	    return end;
 	}
@@ -41,6 +43,49 @@ public class Quick{
 	    swap(data, start, last);
 	    return last;
 	}
+	**/
+
+	int p1 = ((int)(Math.random() * (end+1-start))) + start;
+	int p2 = ((int)(Math.random() * (end+1-start))) + start;
+	int p3 = ((int)(Math.random() * (end+1-start))) + start;
+
+	int pivot;
+	if ((p1 <= p2 && p1 >= p3) || (p1 <= p3 && p1 >= p2)){
+	    pivot = p1;
+	}
+	else if ((p2 <= p1 && p2 >= p3) || (p2 <= p3 && p2 >= p1)){
+	    pivot = p2;
+	}
+
+	//	if ((p3 <= p2 && p3 >= p1) || (p3 <= p1 && p3 >= p2)){
+	else{
+	    pivot = p3;
+	}
+
+        int pivotnum = data[pivot];
+	int begin = start+1;
+	int last = end;
+
+	int lt = start;
+	int gt = end;
+
+	int i = start;
+	while (i <= gt){
+	    if (data[i] == pivotnum){
+		i++;
+	    }
+	    else if (data[i] < pivotnum){
+		swap(data, i, lt);
+		lt++;
+		i++;
+	    }
+	    else{
+		swap(data, i, gt);
+		gt--;
+	    }
+	}
+
+		   
 		
     }
 
@@ -86,6 +131,16 @@ public class Quick{
 	//int[] arr = {2, 10, 15, 23, 0, 5};
 
 	int[] arr = {999,999,999,4,1,0,3,2,999,999,999};
+	/**
+	int[] ar = new int[300000];
+	for(int i = 0; i < 300000; i++){
+	    int ran = (int)(Math.random()*30000+1);
+	    ar[i] = ran;
+	}
+
+	System.out.println(quicksort(ar).equals(ar.QuickSort()));
+	    
+	**/
 	/**
 	System.out.println(select(arr, 0));
 	System.out.println(select(arr, 1));
