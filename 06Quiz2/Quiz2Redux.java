@@ -16,7 +16,7 @@ public class Quiz2Redux{
 	    return;
 	}
 	help(words,begin+1,s,newstr);
-	help(words,begin+1,s,s.substring(begin,begin+1)+newstr);
+	help(words,begin+1,s,newstr+s.substring(begin,begin+1));
 
     }
 
