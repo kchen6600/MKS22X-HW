@@ -15,36 +15,6 @@ public class Quick{
     public static int part(int[] data, int start, int end){
 
 
-	/**
-	if (start == end){
-	    return end;
-	}
-	
-        int pivot = ((int)(Math.random() * (end+1-start))) + start;
-	int pivotnum = data[pivot];
-        swap(data, start, pivot);
-
-	int begin = start+1;
-	int last = end;
-	while(begin < last){
-	    if(data[begin] < pivotnum){
-		begin+=1;
-	    }
-	    else{
-		swap(data, begin, last);
-		last-=1;
-	    }
-	}
-	if(data[last] >= data[start]){
-	    swap(data, start, last-1);
-	    return last-1;
-	}
-	else{
-	    swap(data, start, last);
-	    return last;
-	}
-	**/
-
 	int p1 = ((int)(Math.random() * (end+1-start))) + start;
 	int p2 = ((int)(Math.random() * (end+1-start))) + start;
 	int p3 = ((int)(Math.random() * (end+1-start))) + start;
@@ -63,12 +33,9 @@ public class Quick{
 	}
 	swap(data, pivot, start);
         int pivotnum = data[pivot];
-	//	int begin = start+1;
 	int last = end;
-
 	int lt = start;
 	int gt = end;
-
 	int i = start;
 	while (i <= gt){
 	    if (data[i] == pivotnum){
@@ -148,14 +115,14 @@ public class Quick{
 	System.out.println(Arrays.equals(ar, ar2));
 	    
 	
-	/**
-	System.out.println(select(arr, 0));
-	System.out.println(select(arr, 1));
-	System.out.println(select(arr, 2));
-	System.out.println(select(arr, 3));
-	System.out.println(select(arr, 4));
-	System.out.println(select(arr, 5));
-	**/
+	
+	System.out.println(quickselect(arr, 0));
+	System.out.println(quickselect(arr, 1));
+	System.out.println(quickselect(arr, 2));
+	System.out.println(quickselect(arr, 3));
+	System.out.println(quickselect(arr, 4));
+	System.out.println(quickselect(arr, 5));
+       
 	/**
 	quicksort(arr);
 	
