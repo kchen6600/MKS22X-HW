@@ -61,9 +61,9 @@ public class Quick{
 	else{
 	    pivot = p3;
 	}
-
+	swap(data, pivot, start);
         int pivotnum = data[pivot];
-	int begin = start+1;
+	//	int begin = start+1;
 	int last = end;
 
 	int lt = start;
@@ -84,6 +84,9 @@ public class Quick{
 		gt--;
 	    }
 	}
+	return lt;
+
+
 
 		   
 		
@@ -131,16 +134,20 @@ public class Quick{
 	//int[] arr = {2, 10, 15, 23, 0, 5};
 
 	int[] arr = {999,999,999,4,1,0,3,2,999,999,999};
-	/**
+	
 	int[] ar = new int[300000];
+	int[] ar2 = new int[300000];
 	for(int i = 0; i < 300000; i++){
 	    int ran = (int)(Math.random()*30000+1);
 	    ar[i] = ran;
+	    ar2[i] = ran;
 	}
+	quicksort(ar);
+	Arrays.sort(ar2);
 
-	System.out.println(quicksort(ar).equals(ar.QuickSort()));
+	System.out.println(Arrays.equals(ar, ar2));
 	    
-	**/
+	
 	/**
 	System.out.println(select(arr, 0));
 	System.out.println(select(arr, 1));
@@ -149,13 +156,14 @@ public class Quick{
 	System.out.println(select(arr, 4));
 	System.out.println(select(arr, 5));
 	**/
+	/**
 	quicksort(arr);
 	
 	for(int i = 0; i < arr.length; i++){
 	    System.out.print(arr[i]+" ");
 	    // System.out.println(quickselect(arr,i));
       	}
-	
+	**/
 
 	
 
