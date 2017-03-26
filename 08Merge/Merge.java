@@ -12,6 +12,32 @@ public class Merge{
 
     public static void mergesort(int[]ary){ //more params tbd
     //split the array in half recursively
+
+	if (ary.length <= 1){
+	    return;
+	}
+
+	else{
+	    int[] l = new int[ary.length /2];
+	    int[] r = new int[ary.length - l.length];
+
+	    int rind = 0;
+	    for (int lind = 0; lind < ary.length; lind++){
+		if (lind < l.length){
+		    l[lind] = ary[lind];
+		}
+		else{
+		    r[rind] = ary[lind];
+		    rind+=1;
+		}
+	    }
+
+	    mergesort(l);
+	    mergesort(r);
+	    merge(l, r, ary);
+	}
+
+	    
     }
 
     public static void merge(int[]a, int[]b, int[] destination){
@@ -31,7 +57,7 @@ public class Merge{
 		i++;
 		l++;
 	    }
-	    else if (a[i] < b[j]){
+	    else if (a[i] <= b[j]){
 		destination[l] = a[i];
 		i++;
 		l++;
@@ -51,8 +77,11 @@ public class Merge{
 	int [] a = {1, 3,  5, 7, 9, 11 };
 	int [] b = {2, 4, 6, 8, 10 };
 	int[] dest = new int[a.length + b.length];
-	merge (a, b, dest);
-	System.out.println(Arrays.toString(dest));
+	//merge (a, b, dest);
+	//System.out.println(Arrays.toString(dest));
+	int [] ran = { 0, 1, 1, 1, 1, 0, 3, 9, 6, 7, 4};
+	mergesort(ran);
+	System.out.println(Arrays.toString(ran));
 
     }
 
