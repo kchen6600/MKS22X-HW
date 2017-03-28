@@ -10,7 +10,7 @@ public class MyLinkedList{
 	    i = i.next();
 	}
 	i = new LNode(value, null);
-	
+	size+=1;
     }
 
     public static int size(){
@@ -18,6 +18,13 @@ public class MyLinkedList{
     }
 
     public static String toString(){
+	String str = "[";
+	Lnode i = start;
+	while(i.next() != null){
+	    str += i.value()+", ";
+	    i = i.next();
+	}
+	return str;
     }
 
     private class LNode{
@@ -34,6 +41,10 @@ public class MyLinkedList{
 	    next = n;
 	}
 
+	public LNode value(){
+	    return value;
+	}
+	
 	public LNode next(){
 	    return next;
 	}
