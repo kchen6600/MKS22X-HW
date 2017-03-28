@@ -1,10 +1,15 @@
 public class MyLinkedList{
 
     LNode start;
-    private int size;
+    private int size = 0;
 
 
-    public static void add(){
+    public static void add(int value){
+	LNode i = start;
+	while(i.next() != null){
+	    i = i.next();
+	}
+	i = new LNode(value, null);
 	
     }
 
@@ -16,20 +21,22 @@ public class MyLinkedList{
     }
 
     private class LNode{
-	private int n;
-	private int val;
+	private LNode next;
+	private int value;
 
-	public LNode(int value, int next){
-	    val = value;
-	    n = next;
+	public LNode(){
+	    value = 0;
+	    next = null;
+	}
+	
+	public LNode(int val, int n){
+	    value = val;
+	    next = n;
 	}
 
-	public int next(){
-	    return n;
+	public LNode next(){
+	    return next;
 	}
 
-	public int value(){
-	    return val;
-	}
     }
 }
