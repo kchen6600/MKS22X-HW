@@ -1,28 +1,43 @@
 public class MyLinkedList{
 
-    LNode start;
-    private int size = 0;
+    private static LNode start;
+    private int size;
 
-
-    public static void add(int value){
-	LNode i = start;
-	while(i.next() != null){
-	    i = i.next();
+    public MyLinkedList(){
+	start = null;
+	size = 0;
+    }
+    
+    public boolean add(int value){
+	
+	LNode current = start;
+	while(current.next != null){
+	    current = current.next;
 	}
-	i = new LNode(value, null);
+	current = new LNode(value, null);
 	size+=1;
+	return true;
     }
 
-    public static int size(){
+    public int size(){
 	return size;
     }
 
-    public static String toString(){
+    public String toString(){
+	LNode i = start;
+	if(i == null){
+	    return "[]";
+	}
 	String str = "[";
-	Lnode i = start;
-	while(i.next() != null){
-	    str += i.value()+", ";
-	    i = i.next();
+	while(i != null){
+	    str += i.value;
+	    if(i.next == null){
+		str += "]";
+	    }
+	    else{
+		str += ", ";
+	    }
+	    i = i.next;
 	}
 	return str;
     }
@@ -30,23 +45,15 @@ public class MyLinkedList{
     private class LNode{
 	private LNode next;
 	private int value;
-
+	
 	public LNode(){
 	    value = 0;
 	    next = null;
 	}
 	
-	public LNode(int val, int n){
+	public LNode(int val, LNode n){
 	    value = val;
 	    next = n;
-	}
-
-	public LNode value(){
-	    return value;
-	}
-	
-	public LNode next(){
-	    return next;
 	}
 
     }
