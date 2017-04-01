@@ -65,6 +65,16 @@ public class MyLinkedList{
 	return before;
     }
 
+    public int indexOf(int value){
+	LNode current = start;
+	for (int i = 0; i < size; i++){
+	    if (current.value == value){
+		return i;
+	    }
+	}
+	return -1;
+    }
+
     class LNode{
 	public LNode next;
 	public int value;
@@ -90,5 +100,8 @@ public class MyLinkedList{
 	System.out.println(l.get(1));
 	l.set(1, 2);
 	System.out.println(l.get(1));
+
+	System.out.println(l.indexOf(2));
+	System.out.println(l.indexOf(3));
     }
 }
