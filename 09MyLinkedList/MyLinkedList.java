@@ -24,6 +24,34 @@ public class MyLinkedList{
 	return true;
     }
 
+    public void add (int index, int value){
+	if (index <= size && index >= 0){
+	    if (size == 0){
+		start = new LNode(value, null);
+	    }
+	    else if (index == 0){
+	        LNode current = new LNode(value, start);
+		start = current;
+	    }
+	    else if (index == size){
+		add(value);
+	    }
+	    else{
+		LNode current = start;
+		int i = index;
+		while (i > 1){
+		    current = current.next;
+		    i -= 1;
+		}
+		LNode nextNode = current.next;
+		current.next = new LNode(value, nextNode);
+	    }
+	}
+	size += 1;
+    }
+		
+	
+
     public int size(){
 	return size;
     }
@@ -103,5 +131,12 @@ public class MyLinkedList{
 
 	System.out.println(l.indexOf(2));
 	System.out.println(l.indexOf(3));
+        l.add(0,0);
+	l.add(1,0);
+	l.add(2,0);
+	System.out.println(l);
+	l.add(5, 0);
+	System.out.println(l);
+	
     }
 }
