@@ -47,6 +47,7 @@ public class MyLinkedList{
 		current.next = new LNode(value, nextNode);
 	    }
 	}
+	
 	size += 1;
     }
 		
@@ -127,7 +128,9 @@ public class MyLinkedList{
 		current.next = current.next.next;
 		return before;
 	    }
+	    size -= 1;
 	}
+
 	return -1;
 		
     }
