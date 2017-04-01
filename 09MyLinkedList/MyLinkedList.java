@@ -9,12 +9,17 @@ public class MyLinkedList{
     }
     
     public boolean add(int value){
-	
-	LNode current = start;
-	while(current.next != null){
-	    current = current.next;
+
+	if (size == 0){
+	    start = new LNode(value, null);
 	}
-	current = new LNode(value, null);
+	else{
+	    LNode current = start;
+	    while(current.next != null){
+		current = current.next;
+	    }
+	    current.next = new LNode(value, null);
+	}
 	size+=1;
 	return true;
     }
@@ -42,9 +47,9 @@ public class MyLinkedList{
 	return str;
     }
 
-    private class LNode{
-	private LNode next;
-	private int value;
+    class LNode{
+	public LNode next;
+	public int value;
 	
 	public LNode(){
 	    value = 0;
@@ -56,5 +61,12 @@ public class MyLinkedList{
 	    next = n;
 	}
 
+    }
+
+    public static void main(String[] args){
+	MyLinkedList l = new MyLinkedList();
+	System.out.println(l);
+	l.add(3);
+	System.out.println(l);
     }
 }
