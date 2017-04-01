@@ -46,9 +46,12 @@ public class MyLinkedList{
 		LNode nextNode = current.next;
 		current.next = new LNode(value, nextNode);
 	    }
+	    size += 1;
 	}
 	
-	size += 1;
+        else{
+	    throw new IndexOutOfBoundsException();
+	}
     }
 		
 	
@@ -77,21 +80,31 @@ public class MyLinkedList{
     }
 
     public int get(int index){
-	LNode current = start;
-	for (int i = 0; i < index; i++){
-	    current = current.next;
+       	if (index < size && index >= 0){
+	    LNode current = start;
+	    for (int i = 0; i < index; i++){
+		current = current.next;
+	    }
+	    return current.value;
 	}
-	return current.value;
+	else{
+	    throw new IndexOutOfBoundsException();
+	}
     }
 
     public int set(int index, int newValue){
-	LNode current = start;
-	for (int i = 0; i < index; i++){
-	    current = current.next;
+       	if (index < size && index >= 0){
+	    LNode current = start;
+	    for (int i = 0; i < index; i++){
+		current = current.next;
+	    }
+	    int before = current.value;
+	    current.value = newValue;
+	    return before;
 	}
-	int before = current.value;
-	current.value = newValue;
-	return before;
+	else{
+	    throw new IndexOutOfBoundsException();
+	}
     }
 
     public int indexOf(int value){
@@ -105,33 +118,33 @@ public class MyLinkedList{
     }
 
     public int remove(int index){
+	int before = -1;
 	LNode current = start;
 	if (index < size && index >= 0){
 	    if (index == 0){
-		int before = start.value;
+		before = start.value;
 		start = start.next;
-		return before;
 	    }
 	    else if(index == size){
 		for(int i = 0; i < index - 2; i++){
 		    current = current.next;
 		}
-		int before = current.next.value;
+		before = current.next.value;
 		current.next = null;
-		return before;
 	    }
 	    else{
 		for (int i = 0; i < index - 1; i++){
 		    current = current.next;
 		}
-		int before = current.next.value;
+		before = current.next.value;
 		current.next = current.next.next;
-		return before;
 	    }
 	    size -= 1;
+	    return before;
 	}
-
-	return -1;
+	else{
+	    throw new IndexOutOfBoundsException();
+	}
 		
     }
 	    
