@@ -56,7 +56,13 @@ public class MyLinkedList{
     }
 
     public int set(int index, int newValue){
-	return index;
+	LNode current = start;
+	for (int i = 0; i < index; i++){
+	    current = current.next;
+	}
+	int before = current.value;
+	current.value = newValue;
+	return before;
     }
 
     class LNode{
@@ -81,6 +87,8 @@ public class MyLinkedList{
 	l.add(3);
 	System.out.println(l);
 	l.add(5);
+	System.out.println(l.get(1));
+	l.set(1, 2);
 	System.out.println(l.get(1));
     }
 }
