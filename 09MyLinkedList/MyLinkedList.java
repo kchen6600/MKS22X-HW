@@ -103,6 +103,37 @@ public class MyLinkedList{
 	return -1;
     }
 
+    public int remove(int index){
+	LNode current = start;
+	if (index < size && index >= 0){
+	    if (index == 0){
+		int before = start.value;
+		start = start.next;
+		return before;
+	    }
+	    else if(index == size){
+		for(int i = 0; i < index - 2; i++){
+		    current = current.next;
+		}
+		int before = current.next.value;
+		current.next = null;
+		return before;
+	    }
+	    else{
+		for (int i = 0; i < index - 1; i++){
+		    current = current.next;
+		}
+		int before = current.next.value;
+		current.next = current.next.next;
+		return before;
+	    }
+	}
+	return -1;
+		
+    }
+	    
+        
+
     class LNode{
 	public LNode next;
 	public int value;
@@ -136,6 +167,11 @@ public class MyLinkedList{
 	l.add(2,0);
 	System.out.println(l);
 	l.add(5, 0);
+	System.out.println(l);
+	System.out.println(l.remove(5));
+	System.out.println(l);
+	System.out.println(l.remove(0));
+	System.out.println(l.remove(1));
 	System.out.println(l);
 	
     }
