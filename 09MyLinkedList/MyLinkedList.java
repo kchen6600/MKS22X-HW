@@ -224,6 +224,16 @@ return ans;
 	    next = n;
 	}
 
+	public LNode(int val){
+	    prev = null;
+	    value = val;
+	    next = null;
+	}
+
+	public String toString(){
+	    return value + "";
+	}
+
     }
 
     public static void main(String[] args){
