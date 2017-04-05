@@ -43,14 +43,14 @@ return ans;
     public boolean add(int value){
 
 	if (size == 0){
-	    head = new LNode(value, null);
+	    head = new LNode(value);
 	}
 	else{
 	    LNode current = head;
 	    while(current.next != null){
 		current = current.next;
 	    }
-	    current.next = new LNode(value, null);
+	    current.next = new LNode(value);
 	}
 	size+=1;
 	return true;
@@ -59,10 +59,10 @@ return ans;
     public void add (int index, int value){
 	if (index <= size && index >= 0){
 	    if (size == 0){
-		head = new LNode(value, null);
+		head = new LNode(value);
 	    }
 	    else if (index == 0){
-	        LNode current = new LNode(value, head);
+	        LNode current = new LNode(value, null, head);
 		head = current;
 	    }
 	    else if (index == size){
@@ -75,8 +75,11 @@ return ans;
 		    current = current.next;
 		    i -= 1;
 		}
+		LNode prevNode = current.prev;
 		LNode nextNode = current.next;
-		current.next = new LNode(value, nextNode);
+		current.next = new LNode(value, prevNode, nextNode);
+		prevNode.next = current;
+		nextNode.prev = current;
 	    }
 	    size += 1;
 	}
@@ -242,23 +245,27 @@ return ans;
 	l.add(3);
 	System.out.println(l);
 	l.add(5);
+	//System.out.println(l.get(1));
+	//	l.set(1, 2);
 	System.out.println(l.get(1));
-	l.set(1, 2);
-	System.out.println(l.get(1));
-
-	System.out.println(l.indexOf(2));
-	System.out.println(l.indexOf(3));
+	System.out.println(l);
+	//	System.out.println(l.indexOf(2));
+	//	System.out.println(l.indexOf(3));
+	/**
         l.add(0,0);
 	l.add(1,0);
 	l.add(2,0);
 	System.out.println(l);
 	l.add(5, 0);
 	System.out.println(l);
+	/**
 	System.out.println(l.remove(5));
 	System.out.println(l);
 	System.out.println(l.remove(0));
 	System.out.println(l.remove(1));
 	System.out.println(l);
+	**/
+	System.out.println(l.getNthNode(1));
 	
     }
 }
