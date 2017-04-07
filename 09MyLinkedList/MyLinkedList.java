@@ -251,8 +251,9 @@ return ans;
 	System.out.println(l);
 	//	System.out.println(l.indexOf(2));
 	//	System.out.println(l.indexOf(3));
-	/**
+	
         l.add(0,0);
+	/**
 	l.add(1,0);
 	l.add(2,0);
 	System.out.println(l);
