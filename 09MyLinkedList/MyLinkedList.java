@@ -12,19 +12,7 @@ public class MyLinkedList{
     
     /** to be written
 
-    public void addAfter(LNode location, LNode TBA){
 
-	
-    }
-
-
-
-public int set(int index, int value){
-LNode target = getNthNode(index);
-int ans = target.value;
-target.value = value;
-return ans;
-}
 
     public String toStringDebug(){
     }
@@ -67,7 +55,21 @@ return ans;
 	    throw new IndexOutOfBoundsException();
 	}
     }
-		
+
+    public void addAfter(LNode location, LNode TBA){
+	if (location.next != null){
+	    TBA.next = location.next;
+	    TBA.prev = location;
+	    location.next = TBA.next;
+	}
+	else{
+	    TBA.next = null;
+	    TBA.prev = location;
+	    location.next = TBA;
+	    tail = TBA;
+	}
+	size +=1;
+    }
 	
 
     public int size(){
