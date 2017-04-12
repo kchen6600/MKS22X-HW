@@ -10,15 +10,6 @@ public class MyLinkedList{
 	tail = null;
     }
     
-    /** to be written
-
-
-
-    public String toStringDebug(){
-    }
-
-    **/
-    
     public void add(int value){
 
 	add(size, value);
@@ -95,20 +86,20 @@ public class MyLinkedList{
 	return str;
     }
 
-    /**
-    public int get(int index){
-       	if (index < size && index >= 0){
-	    LNode current = head;
-	    for (int i = 0; i < index; i++){
-		current = current.next;
-	    }
-	    return current.value;
+    public String toStringDebug(){
+	LNode i = head;
+	if(i == null){
+	    return "[]";
 	}
-	else{
-	    throw new IndexOutOfBoundsException();
+	
+	String str = "[ (null) " + i.value + " (" + current.next.value + "), ";
+	i = i.next;
+	while(i.next != null){
+	    str += "(" + i.prev.value+") "+current.value +" (" + current.next.value + "), ";
+	    i= i.next;
 	}
-    }
-    **/
+	return str + "(" + i.prev.value + "(null)";
+
 
     public int get(int index){
 	if (index < size && index >= 0){
@@ -136,23 +127,6 @@ public class MyLinkedList{
 	return n;
 	
     }
-    /**
-    public int set(int index, int newValue){
-       	if (index < size && index >= 0){
-	    LNode current = head;
-	    for (int i = 0; i < index; i++){
-		current = current.next;
-	    }
-	    int before = current.value;
-	    current.value = newValue;
-	    return before;
-	}
-	else{
-	    throw new IndexOutOfBoundsException();
-	}
-    }
-    **/
-
     
     public int set(int index, int value){
 	if (index < size && index >= 0){
@@ -188,32 +162,6 @@ public class MyLinkedList{
 
     
     public int remove(int index){
-	/**
-	int before = -1;
-	LNode current = head;
-	if (index < size && index >= 0){
-	    if (index == 0){
-		before = head.value;
-		head = head.next;
-	    }
-	    else if(index == size){
-		for(int i = 0; i < index - 2; i++){
-		    current = current.next;
-		}
-		before = current.next.value;
-		current.next = null;
-	    }
-	    else{
-		for (int i = 0; i < index - 1; i++){
-		    current = current.next;
-		}
-		before = current.next.value;
-		current.next = current.next.next;
-	    }
-	    size -= 1;
-	    return before;
-	}
-	**/
        	if (index < size && index >= 0){
 	    LNode current = getNthNode(index);
 	    LNode prevNode = current.prev;
