@@ -188,6 +188,7 @@ public class MyLinkedList{
 
     
     public int remove(int index){
+	/**
 	int before = -1;
 	LNode current = head;
 	if (index < size && index >= 0){
@@ -211,6 +212,26 @@ public class MyLinkedList{
 	    }
 	    size -= 1;
 	    return before;
+	}
+	**/
+       	if (index < size && index >= 0){
+	    LNode current = getNthNode(index);
+	    LNode prevNode = current.prev;
+	    LNode nextNode = current.next;
+	    if(index > 0){
+		prevNode.next = nextNode;
+	    }
+	    else{
+		head = nextNode;
+	    }
+	    if (index < size - 1){
+		nextNode.prev = prevNode;
+	    }
+	    else{
+		tail = prevNode;
+	    }
+	    size -=1;
+	    return current.value;
 	}
 	else{
 	    throw new IndexOutOfBoundsException();
@@ -279,6 +300,7 @@ public class MyLinkedList{
 	**/
 	System.out.println(l.get(1));
 	System.out.println(l.set(1, 2));
+	System.out.println(l.remove(5));
 	System.out.println(l);
 	
     }
