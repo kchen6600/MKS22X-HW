@@ -1,4 +1,38 @@
-public class MyLinkedList{
+import java.util.*;
+import java.io.*;
+public class MyLinkedList implements Iterable<Integer>{
+
+    public Iterator<Integer> iterator(){
+	return new MyLinkedListIterator(this);
+    }
+
+    public class MyLinkedListIterator implements Iterator<Integer>{
+	MyLinkedList l;
+	LNode current;
+	public MyLinkedListIterator(MyLinkedList llist){
+	    l = llist;
+	    current = llist.head;
+	}
+
+	public boolean hasNext(){
+	    return !(current == null);
+	}
+
+	public Integer next(){
+	    if(hasNext()){
+		int i = current.value;
+		current = current.next;
+		return i;
+	    }
+	    else{
+		throw new NoSuchElementException();
+	    }
+	}
+
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+    }
 
     private static LNode head;
     private static LNode tail;
@@ -92,13 +126,14 @@ public class MyLinkedList{
 	    return "[]";
 	}
 	
-	String str = "[ (null) " + i.value + " (" + current.next.value + "), ";
+	String str = "[ (null) " + i.value + " (" + i.next.value + "), ";
 	i = i.next;
 	while(i.next != null){
-	    str += "(" + i.prev.value+") "+current.value +" (" + current.next.value + "), ";
+	    str += "(" + i.prev.value+") "+i.value +" (" + i.next.value + "), ";
 	    i= i.next;
 	}
 	return str + "(" + i.prev.value + "(null)";
+    }
 
 
     public int get(int index){
