@@ -17,16 +17,7 @@ public class MyLinkedList{
 	
     }
 
-    public void add(int index, int value){
-    }
 
-    public void add(int value){
-    add(size, value);
-}
-
-public int get(int index){
-return getNthNode(index).value;
-}
 
 public int set(int index, int value){
 LNode target = getNthNode(index);
@@ -40,10 +31,9 @@ return ans;
 
     **/
     
-    public boolean add(int value){
+    public void add(int value){
 
 	add(size, value);
-	return true;
     }
 
     public void add (int index, int value){
@@ -103,6 +93,7 @@ return ans;
 	return str;
     }
 
+    /**
     public int get(int index){
        	if (index < size && index >= 0){
 	    LNode current = head;
@@ -110,6 +101,16 @@ return ans;
 		current = current.next;
 	    }
 	    return current.value;
+	}
+	else{
+	    throw new IndexOutOfBoundsException();
+	}
+    }
+    **/
+
+    public int get(int index){
+	if (index < size && index >= 0){
+	    return getNthNode(index).value;
 	}
 	else{
 	    throw new IndexOutOfBoundsException();
@@ -133,7 +134,7 @@ return ans;
 	return n;
 	
     }
-
+    /**
     public int set(int index, int newValue){
        	if (index < size && index >= 0){
 	    LNode current = head;
@@ -143,6 +144,20 @@ return ans;
 	    int before = current.value;
 	    current.value = newValue;
 	    return before;
+	}
+	else{
+	    throw new IndexOutOfBoundsException();
+	}
+    }
+    **/
+
+    
+    public int set(int index, int value){
+	if (index < size && index >= 0){
+	    LNode old = getNthNode(index);
+	    int n = old.value;
+	    old.value = value;
+	    return n;
 	}
 	else{
 	    throw new IndexOutOfBoundsException();
@@ -260,7 +275,9 @@ return ans;
 	System.out.println(l.remove(1));
 	System.out.println(l);
 	**/
-	System.out.println(l.getNthNode(1));
+	System.out.println(l.get(1));
+	System.out.println(l.set(1, 2));
+	System.out.println(l);
 	
     }
 }
