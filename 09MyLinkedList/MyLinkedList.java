@@ -42,17 +42,7 @@ return ans;
     
     public boolean add(int value){
 
-	if (size == 0){
-	    head = new LNode(value);
-	}
-	else{
-	    LNode current = head;
-	    while(current.next != null){
-		current = current.next;
-	    }
-	    current.next = new LNode(value);
-	}
-	size+=1;
+	add(size, value);
 	return true;
     }
 
@@ -60,26 +50,25 @@ return ans;
 	if (index <= size && index >= 0){
 	    if (size == 0){
 		head = new LNode(value);
+		tail = head;
 	    }
 	    else if (index == 0){
 	        LNode current = new LNode(value, null, head);
-		head = current;
+		head.prev = current;
+		head = head.prev;
 	    }
 	    else if (index == size){
-		add(value);
+		LNode current = new LNode(value, tail, null);
+		tail.next = current;
+		tail = tail.next;
 	    }
 	    else{
-		LNode current = head;
-		int i = index;
-		while (i > 1){
-		    current = current.next;
-		    i -= 1;
-		}
-		LNode prevNode = current.prev;
-		LNode nextNode = current.next;
-		current.next = new LNode(value, prevNode, nextNode);
-		prevNode.next = current;
-		nextNode.prev = current;
+
+		LNode prevNode = getNthNode(index - 1);
+		LNode nextNode = prevNode.next;
+
+		prevNode.next = new LNode(value, prevNode, nextNode);
+		nextNode.prev = prevNode.next;
 	    }
 	    size += 1;
 	}
@@ -128,16 +117,20 @@ return ans;
     }
 
     public LNode getNthNode(int index){
-	if (index < size && index >= 0){
-	    LNode current = head;
-	    for (int i = 0; i < index; i++){
-		current = current.next;
+	LNode current = head;
+	LNode n = null;
+	int i = 0;
+	while(i < size()){
+	    if (i == index){
+		n = current;
+		i = size() + 1;
 	    }
-	    return current;
+	    else{
+	        current = current.next;
+	    }
+	    i++;
 	}
-	else{
-	    throw new IndexOutOfBoundsException();
-	}
+	return n;
 	
     }
 
@@ -210,7 +203,7 @@ return ans;
 	    
         
 
-    class LNode{
+    private class LNode{
 	public LNode prev;
 	public LNode next;
 	public int value;
@@ -253,7 +246,8 @@ return ans;
 	//	System.out.println(l.indexOf(3));
 	
         l.add(0,0);
-	/**
+	System.out.println(l);
+	
 	l.add(1,0);
 	l.add(2,0);
 	System.out.println(l);
