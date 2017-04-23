@@ -59,14 +59,36 @@ public class MyDeque{
 	size +=1;
     }
 
-    /** to be written
+
     //retrieve and remove the element from the specified side
     public String removeFirst(){
+	if (size!= 0){
+	    String removed = dequeary[front];
+	    front = (front + 1) % (dequeary.length);
+	    size -=1;
+	    return removed;
+	}
+	else{
+	    throw new NoSuchElementException("no elements");
+	}
     }
 
     public String removeLast(){
+	if (size!= 0){
+	    String removed = dequeary[back];
+	    if (back == 0){
+		back = dequeary.length - 1;
+	    }
+	    else{
+		back-=1;
+	    }
+	    size -=1;
+	    return removed;
+	}
+	else{
+	    throw new NoSuchElementException("no elements");
+	}
     }
-    **/
 
     //retrieve element from the specified side
     public String getFirst(){
@@ -93,12 +115,12 @@ public class MyDeque{
 	    return "[]";
 	}
 	String str = "[";
-	for(int i = 0; i < size; i++){
+	for(int i = front; i < size+front; i++){
 	    if(dequeary[i] == null){
 		str += "null,";
 	    }
 	    else{
-		str += dequeary[i]+",";
+		str += dequeary[i % dequeary.length]+",";
 	    }
 	}
 	return str.substring(0, str.length() - 1) + "]";
@@ -110,9 +132,15 @@ public class MyDeque{
 	md.addFirst("hi");
 	System.out.println(md);
 	md.addLast("bye");
+       	System.out.println(md);
+	//	md.addFirst("yo");
+	//	System.out.println(md.getFirst());
+	//	System.out.println(md.getLast());
+	//	System.out.println(md.removeLast());
+	//	System.out.println(md);
+	System.out.println("RemoveFirst, removing hi, arry should = [bye]");
+	System.out.println(md.removeFirst());
 	System.out.println(md);
-	System.out.println(md.getFirst());
-	System.out.println(md.getLast());
     }
     
 }
