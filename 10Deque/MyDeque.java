@@ -1,3 +1,4 @@
+import java.util.*;
 public class MyDeque{
 
     private String[] dequeary;
@@ -44,25 +45,49 @@ public class MyDeque{
 	
     }
 
-    /** to be written
     public void addLast (String str){
+	if (str == null){
+	    throw new NullPointerException("Cannot add null elements");
+	}
+	if (size == dequeary.length){
+	    resize();
+	}
+	if (size!= 0){
+	    back = (back+1) % (dequeary.length);
+	}
+	dequeary[back] = str;
+	size +=1;
     }
 
+    /** to be written
     //retrieve and remove the element from the specified side
     public String removeFirst(){
     }
 
     public String removeLast(){
     }
+    **/
 
     //retrieve element from the specified side
     public String getFirst(){
+	if (size!= 0){
+	    return dequeary[front];
+	}
+	else{
+	    throw new NoSuchElementException("no elements");
+	}
     }
 
     public String getLast(){
+	if (size!=0){
+	    return dequeary[back];
+	}
+	else{
+	    throw new NoSuchElementException("no elements");
+	}
     }
 
-    **/
+    
     public String toString(){
 	if (size == 0){
 	    return "[]";
@@ -81,9 +106,13 @@ public class MyDeque{
 
     public static void main(String[] args){
 	MyDeque md = new MyDeque();
-	System.out.println(md);
+	//System.out.println(md.getFirst());
 	md.addFirst("hi");
 	System.out.println(md);
+	md.addLast("bye");
+	System.out.println(md);
+	System.out.println(md.getFirst());
+	System.out.println(md.getLast());
     }
     
 }
