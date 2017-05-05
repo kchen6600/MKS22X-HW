@@ -44,11 +44,51 @@ public class MyHeap{
     }
 
     private void pushUp(){
+	int ind = size;
+	int parent = ind / 2;
+	while (ind > 1 && (direction * heaparray[ind].compareTo(heaparray[parent]) > 0){
+		//do a swap
+		String temp = heaparray[parent];
+		heaparray[parent] = heaparray[ind];
+		heaparray[ind] = temp;
+		ind = parent;
+		parent /= 2;
+	    }
+		
     }
 
     private void pushDown(){
+	int ind = 1;
+	int childa = 2*ind;
+	int childb = 2*ind+1;
+	String str = "";
+	while (ind < size){
+	    if (childa > size){
+		break;
+	    }
+	    else if (heaparray[ind].compareTo(heaparray[childa] * direction < 0){
+		    swap(childa, ind);
+		    ind = 2;
+	    }
+		else{
+		    if(heaparay[ind].compareTo(heaparray[childb]) * direction < 0){
+			swap(childb, ind);
+			ind = 2*i +1;
+		    }
+		}
+		    
+	}
+	    
+	    
     }
 
+    private void swap(int ind1, int ind2){
+	String str = heaparray[ind1];
+	heaparray[ind1] = heaparray[ind2];
+	heaparray[ind2] = str;
+    }
+	    
+   
     public String toString(){
 	String str = "[";
 	for (int i = 1; i <= size; i++){
