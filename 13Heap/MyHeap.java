@@ -8,6 +8,7 @@ public class MyHeap{
     public MyHeap(){
 	heaparray = new String[10];
 	size = 0;
+	direction = 1;
     }
 
     public MyHeap(boolean minmax){
@@ -52,7 +53,6 @@ public class MyHeap{
 		ind = parent;
 		parent /= 2;
 	    }
-		
     }
 
     private void pushDown(){
@@ -61,19 +61,31 @@ public class MyHeap{
 	int childb = 2*ind+1;
 	String str = "";
 	while (ind < size){
-	    if (childa > size){
+	    
+	    if (direction * heaparray[ind].compareTo(heaparray[childa]) < 0){
+		swap(childa, ind);
+		ind = 2 * ind;
+	    }
+	   
+	    
+	    else if (heaparray[ind].compareTo(heaparray[childb]) * direction < 0){
+		swap(childb, ind);
+		ind = 2 * ind + 1;
+	    }
+	    
+	    else{
 		break;
 	    }
-	    else if (direction * heaparray[ind].compareTo(heaparray[childa]) < 0){
-		    swap(childa, ind);
-		    ind = 2;
-	    }
+	    
+	    /**
 	    else{
 		if(heaparray[ind].compareTo(heaparray[childb]) * direction < 0){
 		    swap(childb, ind);
 		    ind = 2*ind +1;
 	        }
 	    }
+	    **/
+	    
 		    
 	}
 	    
@@ -84,6 +96,7 @@ public class MyHeap{
 	String str = heaparray[ind1];
 	heaparray[ind1] = heaparray[ind2];
 	heaparray[ind2] = str;
+	//System.out.println("swapped!");
     }
 	    
    
@@ -100,14 +113,33 @@ public class MyHeap{
 
     public static void main(String[]args){
 	MyHeap a = new MyHeap();
-	a.add("h");
-	a.add("he");
-	a.add("hel");
-	a.add("hell");
-	a.add("hello");
-	a.remove();
-	//System.out.println(a);
-	String test = a.peek();
-	System.out.println(test);
+	a.add("5");
+	a.add("4");
+	a.add("3");
+	a.add("2");
+	a.add("1");
+	System.out.println(a);
+       	String test1 = a.peek();
+       	System.out.println(test1);
+	System.out.println(a.remove());
+	System.out.println(a);
+       	String test = a.peek();
+       	System.out.println(test);
+
+       	MyHeap b = new MyHeap(false);
+	b.add("21");
+	b.add("16");
+	b.add("20");
+	b.add("5");
+	b.add("18");
+	b.add("12");
+	b.add("19");
+	System.out.println(b);
+       	String testb1 = b.peek();
+       	System.out.println(test1);
+	System.out.println(b.remove());
+	System.out.println(b);
+       	String testb = b.peek();
+       	System.out.println(test);
     }
 }
