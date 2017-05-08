@@ -68,12 +68,12 @@ public class MyHeap{
 		    swap(childa, ind);
 		    ind = 2;
 	    }
-		else{
-		    if(heaparray[ind].compareTo(heaparray[childb]) * direction < 0){
-			swap(childb, ind);
-			ind = 2*ind +1;
-		    }
-		}
+	    else{
+		if(heaparray[ind].compareTo(heaparray[childb]) * direction < 0){
+		    swap(childb, ind);
+		    ind = 2*ind +1;
+	        }
+	    }
 		    
 	}
 	    
@@ -99,5 +99,15 @@ public class MyHeap{
     }
 
     public static void main(String[]args){
+	MyHeap a = new MyHeap();
+	a.add("h");
+	a.add("he");
+	a.add("hel");
+	a.add("hell");
+	a.add("hello");
+	a.remove();
+	//System.out.println(a);
+	String test = a.peek();
+	System.out.println(test);
     }
 }
