@@ -18,13 +18,24 @@ public class MyHeap{
 	else{
 	    direction = -1;
 	}
+	heaparray = new String[10];
+	size = 0;
     }
 
     public void add(String str){
+	//resize the array
+	if (size+1 >= heaparray.length){
+	    String[] heaparray2 = new String[heaparray.length *2];
+	    for (int i = 1; i < heaparray.length; i++){
+		heaparray2[i] = heaparray[i];
+	    }
+	    heaparray = heaparray2;
+	}
 	heaparray[size+1] = str;
 	size += 1;
 	pushUp();
     }
+
 
     public String remove(){
 	if(size < 1){
@@ -47,51 +58,66 @@ public class MyHeap{
     private void pushUp(){
 	int ind = size;
 	int parent = ind / 2;
-	while (ind > 1 && direction * heaparray[ind].compareTo(heaparray[parent]) > 0){
+	while (ind > 1){
+	    if( direction * heaparray[ind].compareTo(heaparray[parent]) > 0){
 		//do a swap
 		swap(parent, ind);
-		ind = parent;
-		parent /= 2;
+	       	ind = parent;
+	       	parent /= 2;
 	    }
-    }
-
-    private void pushDown(){
-	int ind = 1;
-	int childa = 2*ind;
-	int childb = 2*ind+1;
-	String str = "";
-	while (ind < size){
-	    
-	    if (direction * heaparray[ind].compareTo(heaparray[childa]) < 0){
-		swap(childa, ind);
-		ind = 2 * ind;
-	    }
-	   
-	    
-	    else if (heaparray[ind].compareTo(heaparray[childb]) * direction < 0){
-		swap(childb, ind);
-		ind = 2 * ind + 1;
-	    }
-	    
 	    else{
 		break;
 	    }
-	    
-	    /**
-	    else{
-		if(heaparray[ind].compareTo(heaparray[childb]) * direction < 0){
-		    swap(childb, ind);
-		    ind = 2*ind +1;
-	        }
-	    }
-	    **/
-	    
-		    
 	}
-	    
-	    
     }
 
+    private void pushDown() {
+        int ind = 1;
+	int childa = 2*ind;
+	int childb = 2*ind+1;
+	while(ind < size) {
+	    //no children case
+	    if(childa > size){
+		break;
+	    }
+	    //one child case
+	    else if(childb > size) {
+		if(direction*heaparray[ind].compareTo(heaparray[childa]) < 0) {
+		    swap(ind, childa);
+		}
+		break;
+	    }
+	    //two children cases
+	    else {
+		//correct placing
+		if(direction*heaparray[ind].compareTo(heaparray[childa]) > 0 && direction*heaparray[ind].compareTo(heaparray[childb]) > 0) {
+		    break;
+		}
+		else if(direction*heaparray[ind].compareTo(heaparray[childa]) < 0 && direction*heaparray[ind].compareTo(heaparray[childb]) > 0) {  
+		    swap(ind, childa);
+		    ind = childa;
+		}
+		else if(direction*heaparray[ind].compareTo(heaparray[childa]) > 0 && direction*heaparray[ind].compareTo(heaparray[childb])< 0) {    
+		    swap(ind, childb);
+		    ind = childb;
+		}
+		else {
+		    if(direction*heaparray[childa].compareTo(heaparray[childb]) < 0){	     
+			swap(ind, childb);
+			ind = childb;
+		    }
+		    else{
+			swap(ind, childa);
+			ind = childa;
+		    }
+		}
+		
+		childa = ind * 2;
+		childb = childa + 1;
+	    }
+	}
+    }
+    
     private void swap(int ind1, int ind2){
 	String str = heaparray[ind1];
 	heaparray[ind1] = heaparray[ind2];
@@ -112,6 +138,7 @@ public class MyHeap{
     }
 
     public static void main(String[]args){
+	/**
 	MyHeap a = new MyHeap();
 	a.add("5");
 	a.add("4");
@@ -125,8 +152,8 @@ public class MyHeap{
 	System.out.println(a);
        	String test = a.peek();
        	System.out.println(test);
-
-       	MyHeap b = new MyHeap(false);
+	**/
+       	MyHeap b = new MyHeap(true);
 	b.add("21");
 	b.add("16");
 	b.add("20");
@@ -136,10 +163,10 @@ public class MyHeap{
 	b.add("19");
 	System.out.println(b);
        	String testb1 = b.peek();
-       	System.out.println(test1);
+       	System.out.println(testb1);
 	System.out.println(b.remove());
 	System.out.println(b);
        	String testb = b.peek();
-       	System.out.println(test);
+       	System.out.println(testb);
     }
 }
