@@ -22,13 +22,34 @@ public class RunningMedian{
     }
 
     public void add(Integer val){
+	//both empty
+	if (maxheap.size() == 0 && minheap.size() == 0){
+	    maxheap.add(val);
+	}
+	//max empty
+	else if (maxheap.size() == 0 && minheap.peek().compareTo(val) < 0){
+	    maxheap.add(maxheap.remove());
+	    maxheap.add(val);
+	}
+	//other empty
+	else if (minheap.size() == 0 && maxheap.peek().compareTo(val) < 0){
+	    maxheap.add(minheap.remove());
+	    maxheap.add(val);
+	}
+	else{
+	    maxheap.add(val);
+	}
+	
     }
 
     public String toString(){
+	return getMedian() + "";
     }
 
     public static void main(String[] args){
 	RunningMedian test = new RunningMedian();
+	test.add(7);
+	System.out.println(test);
     }
 
 
