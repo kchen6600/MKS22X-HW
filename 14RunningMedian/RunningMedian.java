@@ -11,7 +11,7 @@ public class RunningMedian{
 
     public double getMedian(){
 	if (maxheap.size() == minheap.size()){
-	    return (maxheap.size() + minheap.size()) / 2.0;
+	    return (maxheap.peek() + minheap.peek()) / 2.0;
 	}
 	else if (maxheap.size() < minheap.size()){
 	    return 0.0 + minheap.peek();
@@ -22,6 +22,8 @@ public class RunningMedian{
     }
 
     public void add(Integer val){
+	int maxsize = maxheap.size();
+	int minsize = minheap.size();
 	//both empty
 	if (maxheap.size() == 0 && minheap.size() == 0){
 	    maxheap.add(val);
@@ -31,13 +33,17 @@ public class RunningMedian{
 	    maxheap.add(maxheap.remove());
 	    maxheap.add(val);
 	}
-	//other empty
-	else if (minheap.size() == 0 && maxheap.peek().compareTo(val) < 0){
-	    maxheap.add(minheap.remove());
-	    maxheap.add(val);
+	else if (getMedian() < val){
+	    minheap.add(val);
+	    if (minheap.size() - maxheap.size() > 1){
+		maxheap.add(minheap.remove());
+	    }
 	}
 	else{
 	    maxheap.add(val);
+	    if (maxheap.size() - minheap.size() > 1){
+		minheap.add(maxheap.remove());
+	    }
 	}
 	
     }
@@ -49,6 +55,15 @@ public class RunningMedian{
     public static void main(String[] args){
 	RunningMedian test = new RunningMedian();
 	test.add(7);
+	System.out.println(test);
+	test.add(2);
+	test.add(9);
+	test.add(10);
+	test.add(1);
+	System.out.println(test);
+	for (int i = 0; i < 1000; i++){
+	    test.add((int)(Math.random() * 60000));
+	}
 	System.out.println(test);
     }
 
