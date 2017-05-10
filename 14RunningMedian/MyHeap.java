@@ -21,6 +21,10 @@ public class MyHeap{
 	size = 0;
     }
 
+    public Integer size(){
+	return size;
+    }
+    
     public void add(Integer str){
 	//resize the array
 	if (size+1 >= heaparray.length){
