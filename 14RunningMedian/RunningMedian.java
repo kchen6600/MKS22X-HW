@@ -25,23 +25,23 @@ public class RunningMedian{
 	int maxsize = maxheap.size();
 	int minsize = minheap.size();
 	//both empty
-	if (maxheap.size() == 0 && minheap.size() == 0){
+	if (maxsize == 0 && minsize == 0){
 	    maxheap.add(val);
 	}
 	//max empty
-	else if (maxheap.size() == 0 && minheap.peek().compareTo(val) < 0){
+	else if (maxsize == 0 && minheap.peek().compareTo(val) < 0){
 	    maxheap.add(maxheap.remove());
 	    maxheap.add(val);
 	}
 	else if (getMedian() < val){
 	    minheap.add(val);
-	    if (minheap.size() - maxheap.size() > 1){
+	    if (minsize - maxsize > 1){
 		maxheap.add(minheap.remove());
 	    }
 	}
 	else{
 	    maxheap.add(val);
-	    if (maxheap.size() - minheap.size() > 1){
+	    if (maxsize - minsize > 1){
 		minheap.add(maxheap.remove());
 	    }
 	}
