@@ -88,10 +88,32 @@ public class Quick{
 
     public static void quicksortH(int[] data, int start, int end){
 
+	if (start == end){
+	    return;
+	}
+
+	int ran = (int)(Math.random() * (1+ end - start)) + start;
+
+	swap(data, start, ran);
+
+	int i = start + 1;
+	int gt = end;
+	int lt = start;
+	int num = data[lt];
+
+	while( gt >= i){
+	    if(num == data[i]){
+		i++;
+	    }
+	    else if (num > data[i]){
+		swap (data, lt, i);
+	    }
+	    else{
+		swap (data, gt, i);
+	    }
 	if (end > start){
-	    int i = part(data, start, end);
-	    quicksortH(data, i+1, end);
-	    quicksortH(data, start, i-1);
+	    quicksortH(data, gt, end);
+	    quicksortH(data, start, lt-1);
 	}
     }
    
