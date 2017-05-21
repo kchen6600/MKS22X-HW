@@ -107,10 +107,14 @@ public class Quick{
 	    }
 	    else if (num > data[i]){
 		swap (data, lt, i);
+		lt+=1;
+		i+=1;
 	    }
 	    else{
 		swap (data, gt, i);
+		gt -=1;
 	    }
+	}
 	if (end > start){
 	    quicksortH(data, gt, end);
 	    quicksortH(data, start, lt-1);
