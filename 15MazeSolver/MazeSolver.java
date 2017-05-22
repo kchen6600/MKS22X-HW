@@ -47,7 +47,7 @@ public class MazeSolver{
 	thefrontier.add(themaze.getStart());
 
 	while (thefrontier != null){
-	    System.out.println(themaze.toString(100));
+	    //System.out.println(themaze.toString(100));
 	    i = thefrontier.next();
 	    r = i.getRow();
 	    c = i.getCol();
@@ -113,4 +113,8 @@ public class MazeSolver{
 	}
     }
 
+    public static void main(String[] args){
+	MazeSolver t = new MazeSolver("data4.txt");
+	t.solve(0);
+    }
 }

@@ -2,18 +2,20 @@ import java.util.*;
 public class FrontierPriorityQueue implements Frontier{
 
 
-    private PriorityQueue<Location> locations;
+    private MyHeap locations;
     private int size;
     
     public FrontierPriorityQueue(){
-        locations = new PriorityQueue<Location>();
+        locations = new MyHeap(false);
     }
 
     public void add(Location l){
+	size+=1;
 	locations.add(l);
     }
 
     public Location next(){
+	size-=1;
 	return locations.remove();
     }
 
@@ -23,6 +25,10 @@ public class FrontierPriorityQueue implements Frontier{
 
     public String toString(){
 	return locations.toString();
+    }
+
+    public boolean hasNext(){
+	return locations.size() != 0;
     }
     
 }

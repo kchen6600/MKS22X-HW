@@ -23,6 +23,22 @@ public class Location implements Comparable<Location>{
 	aStar = star;
     }
 
+    public int getDistanceToGoal(){
+	return distanceToGoal;
+    }
+
+    public int getDistanceToStart(){
+	return distanceToStart;
+    }
+
+    public int getRow(){
+	return row;
+    }
+
+    public int getCol(){
+	return col;
+    }
+    
     public Location getPrevious(){
 	return this.previous;
     }

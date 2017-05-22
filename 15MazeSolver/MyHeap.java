@@ -42,10 +42,13 @@ public class MyHeap{
 
 
     public Location remove(){
+	
 	if(size < 1){
 	    throw new IllegalArgumentException();
 	}
+	
 	Location removed = heaparray[1];
+
 	heaparray[1] = heaparray[size];
 	size -= 1;
 	pushDown();
