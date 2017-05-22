@@ -20,9 +20,10 @@ public class MazeSolver{
 
 	Frontier thefrontier = null;
 	Location last = null;
-	Location i;
+	Location i = null;
 	boolean astar = false;
-	int r,c;
+	int r =0;
+	int c = 0;
 	int[] ds = {-1,1};
 	
 	//depthfirst
@@ -59,20 +60,20 @@ public class MazeSolver{
 	    }
 	}
 
-	for (int st = 0; i < dir.length; st++){
-	    int drst = Math.abs(themaze.getStart().getRow() - (r+dir[i])) + Math.abs(themaze.getStart().getCol() - c); 
-	    int drend = Math.abs(themaze.getEnd().getRow() - (r+dir[i])) + Math.abs(themaze.getEnd().getCol() - c);
-	    int dcst = Math.abs(themaze.getStart().getRow() - r) + Math.abs(themaze.getStart().getCol() - (c+dir[i]));
-	    int dcend = Math.abs(themaze.getEnd().getRow() - (r)) + Math.abs(themaze.getEnd().getCol() - (c+dir[i]));
+	for (int st = 0; st < ds.length; st++){
+	    int drst = Math.abs(themaze.getStart().getRow() - (r+ds[st])) + Math.abs(themaze.getStart().getCol() - c); 
+	    int drend = Math.abs(themaze.getEnd().getRow() - (r+ds[st])) + Math.abs(themaze.getEnd().getCol() - c);
+	    int dcst = Math.abs(themaze.getStart().getRow() - r) + Math.abs(themaze.getStart().getCol() - (c+ds[st]));
+	    int dcend = Math.abs(themaze.getEnd().getRow() - (r)) + Math.abs(themaze.getEnd().getCol() - (c+ds[st]));
 
-	    if(themaze.get(r, dir[i]+ c) != '@' && themaze.get(r, dir[i]+ c) != '.' && themaze.get(r,dir[i]+ c) != '#'){
-		thefrontier.add(new Location(r, dir[i]+ c, i, dcst, dcend,astar));
-		themaze.set(r,dir[i]+ c, '?');
+	    if(themaze.get(r, ds[st]+ c) != '@' && themaze.get(r, ds[st]+ c) != '.' && themaze.get(r,ds[st]+ c) != '#'){
+		thefrontier.add(new Location(r, ds[st]+ c, i, dcst, dcend,astar));
+		themaze.set(r,ds[st]+ c, '?');
 	    }
 
-	    if(themaze.get(r+dir[i], c) != '@' && themaze.get(r+dir[i], c) != '.' && themaze.get(r+dir[i], c) != '#'){
-		thefrontier.add(new Location(r + dir[i], c, i, drst, drend,astar));
-		themaze.set(r+dir[i], c, '?');
+	    if(themaze.get(r+ds[st], c) != '@' && themaze.get(r+ds[st], c) != '.' && themaze.get(r+ds[st], c) != '#'){
+		thefrontier.add(new Location(r + ds[st], c, i, drst, drend,astar));
+		themaze.set(r+ds[st], c, '?');
 	    }
 	}
 
@@ -86,7 +87,7 @@ public class MazeSolver{
 	int c;
 	r = l.getRow();
 	c = l.getCol();
-	maze.set(r, c,'E');
+	themaze.set(r, c,'E');
 	i = l.getPrevious();
 	while(i.getDistanceToStart() != 0){
 	    System.out.println(themaze.toString(100));
@@ -105,7 +106,7 @@ public class MazeSolver{
 
     public String toString(){
 	if (toanimate){
-	    return toString(500);
+	    return themaze.toString();
 	}
 	else{
 	    return themaze.toString();
