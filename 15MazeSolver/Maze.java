@@ -118,6 +118,14 @@ public class Maze{
   public void set(int row,int col, char n){
     maze[row][col] = n;
   }
+
+    public int getMaxRows(){
+	return maxRows;
+    }
+    public int getMaxCols(){
+	return maxCols;
+    }
+    
   public static String colorize(String s){
     String ans = "";
     Scanner in = new Scanner(s);

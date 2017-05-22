@@ -44,69 +44,68 @@ public class MazeSolver{
 	    astar = true;
 	}
 
-	thefrontier.add(themaze.getStart());
 
-	while (thefrontier != null){
-	    //System.out.println(themaze.toString(100));
+	while(thefrontier.hasNext()){
 	    i = thefrontier.next();
-	    r = i.getRow();
-	    c = i.getCol();
-	    if (i.getDistanceToGoal() == 0){
-		trace(i);
-		return;
+
+	    if(dToGoal(i) == 0){
+		while(i.hasPrevious()){
+		    themaze.set(i.row(), i.col(), '@');
+		    i = i.getPrevious();
+		}
+		themaze.set(themaze.getStart().row(), themaze.getStart().col(), '@');
+		themaze.set(themaze.getEnd().row(), themaze.getEnd().col(), '@');
+		break;
+	    }
+
+	    themaze.set(i.row(), i.col(), '.');
+	    for(int st =1; st <=4;st++){
+		r = findRow(i, st);
+		c = findCol(i, st);
+		if (r < themaze.getMaxRows() && r > 0 && c > 0 && c < themaze.getMaxCols() && themaze.get(r, c) == ' '){
+		    thefrontier.add(new Location(r, c,i, dToStart(i), dToGoal(i), astar));
+		    themaze.set(r, c, '?');
+		}
+	    }
+	}
+	
+    }
+
+	private int dToStart(Location l){
+	    return Math.abs(themaze.getStart().row() - l.row()) + Math.abs(themaze.getStart().col() - l.col());
+	}
+
+	private int dToGoal(Location l){
+	    return Math.abs(themaze.getEnd().row() - l.row()) + Math.abs(themaze.getEnd().col() - l.col());
+	}
+
+	private int findRow(Location l, int n){
+	    if (n == 0){
+		return l.row()+1;
+	    }
+	    else if (n==1){
+		return l.row() -1;
 	    }
 	    else{
-		themaze.set(r, c, '@');
+		return l.row();
 	    }
 	}
 
-	for (int st = 0; st < ds.length; st++){
-	    int drst = Math.abs(themaze.getStart().getRow() - (r+ds[st])) + Math.abs(themaze.getStart().getCol() - c); 
-	    int drend = Math.abs(themaze.getEnd().getRow() - (r+ds[st])) + Math.abs(themaze.getEnd().getCol() - c);
-	    int dcst = Math.abs(themaze.getStart().getRow() - r) + Math.abs(themaze.getStart().getCol() - (c+ds[st]));
-	    int dcend = Math.abs(themaze.getEnd().getRow() - (r)) + Math.abs(themaze.getEnd().getCol() - (c+ds[st]));
-
-	    if(themaze.get(r, ds[st]+ c) != '@' && themaze.get(r, ds[st]+ c) != '.' && themaze.get(r,ds[st]+ c) != '#'){
-		thefrontier.add(new Location(r, ds[st]+ c, i, dcst, dcend,astar));
-		themaze.set(r,ds[st]+ c, '?');
+	private int findCol(Location l, int n){
+	    if (n == 3){
+		return l.col() + 1;
 	    }
-
-	    if(themaze.get(r+ds[st], c) != '@' && themaze.get(r+ds[st], c) != '.' && themaze.get(r+ds[st], c) != '#'){
-		thefrontier.add(new Location(r + ds[st], c, i, drst, drend,astar));
-		themaze.set(r+ds[st], c, '?');
+	    else if(n == 4){
+		return l.col() - 1;
+	    }
+	    else{
+		return l.col();
 	    }
 	}
-
-        themaze.set(r, c, '.');
-				
-    }
-
-    public void trace(Location l){
-	Location i;
-	int r;
-	int c;
-	r = l.getRow();
-	c = l.getCol();
-	themaze.set(r, c,'E');
-	i = l.getPrevious();
-	while(i.getDistanceToStart() != 0){
-	    System.out.println(themaze.toString(100));
-	    r = i.getRow();
-	    c = i.getCol();
-	    themaze.set(r, c, '@');
-	    i = i.getPrevious();
-	}
-	r = i.getRow();
-	c = i.getCol();
-	themaze.set(r,c, 'S');
-	System.out.println(themaze.toString(200));
-    }
-
-    
 
     public String toString(){
 	if (toanimate){
-	    return themaze.toString();
+	    return themaze.toString(20);
 	}
 	else{
 	    return themaze.toString();
@@ -114,7 +113,8 @@ public class MazeSolver{
     }
 
     public static void main(String[] args){
-	MazeSolver t = new MazeSolver("data4.txt");
-	t.solve(0);
+	MazeSolver t = new MazeSolver("data2.txt");
+	t.solve(1);
+	System.out.println(t);
     }
 }

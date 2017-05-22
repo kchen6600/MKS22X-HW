@@ -11,7 +11,6 @@ public class Location implements Comparable<Location>{
 	previous = prev;
 	distanceToStart = distToStart;
 	distanceToGoal = distToGoal;
-	aStar = true;
     }
 
     public Location(int r, int c, Location prev, int distToStart, int distToGoal, boolean star){
@@ -31,16 +30,20 @@ public class Location implements Comparable<Location>{
 	return distanceToStart;
     }
 
-    public int getRow(){
+    public int row(){
 	return row;
     }
 
-    public int getCol(){
+    public int col(){
 	return col;
     }
     
     public Location getPrevious(){
-	return this.previous;
+	return previous;
+    }
+
+    public boolean hasPrevious(){
+	return previous != null;
     }
 
     public int compareTo(Location other){
