@@ -22,20 +22,12 @@ public class Location implements Comparable<Location>{
 	distanceToGoal = distToGoal;
 	aStar = star;
     }
-    /**
-    public int getDistanceToStart(){
-	
-    }
-
-    public int getDistanceToGoal(){
-    }
-    **/
 
     public Location getPrevious(){
 	return this.previous;
     }
 
-    public int CompareTo(Location other){
+    public int compareTo(Location other){
 	if (aStar){
 	    if((this.distanceToStart + this.distanceToGoal) < (other.distanceToStart + other.distanceToGoal)){
 		return -1;
@@ -58,5 +50,9 @@ public class Location implements Comparable<Location>{
 		return 0;
 	    }
 	}
+    }
+
+    public String toString(){
+	return "[ "+row+", "+col+" ]";
     }
 }
