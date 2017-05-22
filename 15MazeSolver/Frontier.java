@@ -1,14 +1,9 @@
 public interface Frontier{
-    /**
-    public void add(Location loc){
-	
-    }
+    
+    public void add(Location l);
 
-    public Location next(){
-	if (this.hasNext()){
-	    return this.next();
-	}
-    }
-    **/
+    public Location next();
+    
+    public int size();
 
 }
