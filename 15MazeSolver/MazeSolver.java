@@ -1,12 +1,15 @@
 public class MazeSolver{
 
+    private Maze themaze;
+    private boolean toanimate;
+    
     public MazeSolver(String filename){
 	this(filename, false);
     }
 
     public MazeSolver(String filename, boolean animate){
-	//input name of the mazefile
-	//animate
+	themaze = new Maze(filename);
+	toanimate = animate;
     }
 
     public void solve(){
@@ -17,5 +20,11 @@ public class MazeSolver{
     }
 
     public String toString(){
+	if (toanimate){
+	    return toString(500);
+	}
+	else{
+	    return themaze.toString();
+	}
     }
 }
