@@ -17,4 +17,7 @@ public class FrontierStack implements Frontier{
 	return locations.peek();
     }
 
+    public boolean hasNext(){
+	return !locations.empty();
+    }
 }
