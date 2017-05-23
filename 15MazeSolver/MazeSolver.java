@@ -55,8 +55,9 @@ public class MazeSolver{
 	    i = thefrontier.next();
 
 	    if (i.getDistanceToGoal() == 0){
-		solved = true;
 		trace(i);
+		solved = true;
+	        
 	    }
 	    else{
 		themaze.set(i.row(), i.col(), '.');
@@ -75,13 +76,22 @@ public class MazeSolver{
     }
 
     public void trace(Location l){
+	/**
+	Location loc;
+	int locrow = l.row();
+	int loccol = l.col();
+	themaze.set(locrow, loccol, 'E');
+	**/
 	while (l != null){
 	    themaze.set(l.row(), l.col(), '@');
 	    if (toanimate){
-		System.out.println(themaze.toString(50));
-		l = l.getPrevious();
+		System.out.println(themaze.toString(100));
 	    }
+	    l = l.getPrevious();
 	}
+	//	themaze.set(l.row(), l.col(), 'S');
+	//	System.out.println(themaze.toString(200));
+	
     }
 	
 	private int dToStart(Location l){
@@ -92,29 +102,13 @@ public class MazeSolver{
 	    return Math.abs(themaze.getEnd().row() - l.row()) + Math.abs(themaze.getEnd().col() - l.col());
 	}
 
-	private int findRow(Location l, int n){
-	    if (n == 0){
-		return l.row()+1;
-	    }
-	    else if (n==1){
-		return l.row() -1;
-	    }
-	    else{
-		return l.row();
-	    }
-	}
+    private int findRow(Location l, int n){
+	return  l.row() + (n%2) * (2-n);
+    }
 
-	private int findCol(Location l, int n){
-	    if (n == 3){
-		return l.col() + 1;
-	    }
-	    else if(n == 4){
-		return l.col() - 1;
-	    }
-	    else{
-		return l.col();
-	    }
-	}
+    private int findCol(Location l, int n){
+        return  l.col() + ((n+1)%2) * (n-3);
+    }
 
     public String toString(){
 	if (toanimate){
