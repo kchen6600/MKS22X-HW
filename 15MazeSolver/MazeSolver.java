@@ -47,18 +47,16 @@ public class MazeSolver{
 
 	thefrontier.add(themaze.getStart());
 	
-	while(thefrontier.hasNext() && !solved){
-	    if (toanimate){
-		System.out.println(themaze.toString(50));
-	    }
+	while(thefrontier.size()>0 && !solved){
+     
 	    
 	    i = thefrontier.next();
-
+	    
 	    if (i.getDistanceToGoal() == 0){
-		trace(i);
+		//	trace(i);
 		solved = true;
-	        
 	    }
+	    
 	    else{
 		themaze.set(i.row(), i.col(), '.');
 	        
@@ -71,7 +69,20 @@ public class MazeSolver{
 		    }
 		}
 	    }
+	    	if (toanimate){
+		System.out.println(themaze.toString(50));
+	    }
 	}
+
+	themaze.set(i.row(), i.col(), 'E');
+	i = i.getPrevious();
+
+	while(i.hasPrevious()){
+	    themaze.set(i.row(), i.col(), '@');
+	    i = i.getPrevious();
+	}
+
+	themaze.set(i.row(), i.col(), 'S');
 	
     }
 
@@ -121,7 +132,7 @@ public class MazeSolver{
 
     public static void main(String[] args){
 	MazeSolver t = new MazeSolver("data2.txt",true);
-	t.solve(3);
+	t.solve(0);
 	System.out.println(t);
     }
 }

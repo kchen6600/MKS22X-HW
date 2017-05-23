@@ -21,4 +21,8 @@ public class FrontierQueue implements Frontier{
     public boolean hasNext(){
 	return locations.size() != 0;
     }
+
+    public int size(){
+	return locations.size();
+    }
 }

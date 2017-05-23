@@ -20,4 +20,9 @@ public class FrontierStack implements Frontier{
     public boolean hasNext(){
 	return !locations.empty();
     }
+
+    public int size(){
+	return locations.size();
+
+    }
 }

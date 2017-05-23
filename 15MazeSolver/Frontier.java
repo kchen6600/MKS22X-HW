@@ -6,4 +6,5 @@ public interface Frontier{
 
     public boolean hasNext();
 
+    public int size();
 }
