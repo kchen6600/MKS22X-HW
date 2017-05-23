@@ -24,7 +24,7 @@ public class MazeSolver{
 	boolean astar = false;
 	int r =0;
 	int c = 0;
-	int[] ds = {-1,1};
+        boolean solved = false;
 	
 	//depthfirst
 	if (style == 0){
@@ -45,32 +45,45 @@ public class MazeSolver{
 	}
 
 
-	while(thefrontier.hasNext()){
+	thefrontier.add(themaze.getStart());
+	
+	while(thefrontier.hasNext() && !solved){
+	    if (toanimate){
+		System.out.println(themaze.toString(50));
+	    }
+	    
 	    i = thefrontier.next();
 
-	    if(dToGoal(i) == 0){
-		while(i.hasPrevious()){
-		    themaze.set(i.row(), i.col(), '@');
-		    i = i.getPrevious();
-		}
-		themaze.set(themaze.getStart().row(), themaze.getStart().col(), '@');
-		themaze.set(themaze.getEnd().row(), themaze.getEnd().col(), '@');
-		break;
+	    if (i.getDistanceToGoal() == 0){
+		solved = true;
+		trace(i);
 	    }
-
-	    themaze.set(i.row(), i.col(), '.');
-	    for(int st =1; st <=4;st++){
-		r = findRow(i, st);
-		c = findCol(i, st);
-		if (r < themaze.getMaxRows() && r > 0 && c > 0 && c < themaze.getMaxCols() && themaze.get(r, c) == ' '){
-		    thefrontier.add(new Location(r, c,i, dToStart(i), dToGoal(i), astar));
-		    themaze.set(r, c, '?');
+	    else{
+		themaze.set(i.row(), i.col(), '.');
+	        
+		for(int st =1; st <=4;st++){
+		    r = findRow(i, st);
+		    c = findCol(i, st);
+		    if (themaze.get(r, c) == ' '){
+			thefrontier.add(new Location(r, c,i, dToStart(i), dToGoal(i), astar));
+			themaze.set(r, c, '?');
+		    }
 		}
 	    }
 	}
 	
     }
 
+    public void trace(Location l){
+	while (l != null){
+	    themaze.set(l.row(), l.col(), '@');
+	    if (toanimate){
+		System.out.println(themaze.toString(50));
+		l = l.getPrevious();
+	    }
+	}
+    }
+	
 	private int dToStart(Location l){
 	    return Math.abs(themaze.getStart().row() - l.row()) + Math.abs(themaze.getStart().col() - l.col());
 	}
@@ -105,7 +118,7 @@ public class MazeSolver{
 
     public String toString(){
 	if (toanimate){
-	    return themaze.toString(20);
+	    return themaze.toString(200);
 	}
 	else{
 	    return themaze.toString();
@@ -113,8 +126,8 @@ public class MazeSolver{
     }
 
     public static void main(String[] args){
-	MazeSolver t = new MazeSolver("data2.txt");
-	t.solve(1);
+	MazeSolver t = new MazeSolver("data2.txt",true);
+	t.solve(3);
 	System.out.println(t);
     }
 }
