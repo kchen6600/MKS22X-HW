@@ -1,7 +1,8 @@
+import java.util.*;
 public class MazeSolver{
 
     private Maze themaze;
-    private boolean toanimate;
+    private boolean toanimate,astar;
     
     public MazeSolver(String filename){
 	this(filename, false);
@@ -21,7 +22,7 @@ public class MazeSolver{
 	Frontier thefrontier = null;
 	Location last = null;
 	Location i = null;
-	boolean astar = false;
+	astar = false;
 	int r =0;
 	int c = 0;
         boolean solved = false;
@@ -47,6 +48,7 @@ public class MazeSolver{
 
 	thefrontier.add(themaze.getStart());
 	
+	
 	while(thefrontier.size()>0 && !solved){
      
 	    
@@ -54,64 +56,45 @@ public class MazeSolver{
 	    
 	    if (i.getDistanceToGoal() == 0){
 		//	trace(i);
+		while(i.hasPrevious()){
+		    i = i.getPrevious();
+		    themaze.set(i.row(),i.col(),'@');
+		    if (toanimate){
+			System.out.println(themaze.toString(50));
+		    }
+		}
+		themaze.set(themaze.getStart().row(), themaze.getStart().col(), 'S');
+		themaze.set(themaze.getEnd().row(),themaze.getStart().row(),'E');
+		if (toanimate){
+		    System.out.println(themaze.toString(50));
+		}
 		solved = true;
 	    }
 	    
 	    else{
 		themaze.set(i.row(), i.col(), '.');
 	        
-		for(int st =1; st <=4;st++){
-		    r = findRow(i, st);
-		    c = findCol(i, st);
-		    if (themaze.get(r, c) == ' '){
-			thefrontier.add(new Location(r, c,i, dToStart(i), dToGoal(i), astar));
-			themaze.set(r, c, '?');
+	        for(Location cur : theneighbors(i)){
+		    if (cur != null){
+			thefrontier.add(cur);
+			themaze.set(cur.row(),cur.col(), '?');
 		    }
 		}
 	    }
-	    	if (toanimate){
+	    if (toanimate){
 		System.out.println(themaze.toString(50));
 	    }
 	}
-
-	themaze.set(i.row(), i.col(), 'E');
-	i = i.getPrevious();
-
-	while(i.hasPrevious()){
-	    themaze.set(i.row(), i.col(), '@');
-	    i = i.getPrevious();
-	}
-
-	themaze.set(i.row(), i.col(), 'S');
 	
     }
 
-    public void trace(Location l){
-	/**
-	Location loc;
-	int locrow = l.row();
-	int loccol = l.col();
-	themaze.set(locrow, loccol, 'E');
-	**/
-	while (l != null){
-	    themaze.set(l.row(), l.col(), '@');
-	    if (toanimate){
-		System.out.println(themaze.toString(100));
-	    }
-	    l = l.getPrevious();
-	}
-	//	themaze.set(l.row(), l.col(), 'S');
-	//	System.out.println(themaze.toString(200));
 	
+    private int dToStart(int or, int oc){
+	return Math.abs(themaze.getStart().row() - or) + Math.abs(themaze.getStart().col() - oc);
     }
-	
-	private int dToStart(Location l){
-	    return Math.abs(themaze.getStart().row() - l.row()) + Math.abs(themaze.getStart().col() - l.col());
-	}
-
-	private int dToGoal(Location l){
-	    return Math.abs(themaze.getEnd().row() - l.row()) + Math.abs(themaze.getEnd().col() - l.col());
-	}
+    private int dToGoal(int or, int oc){
+	return Math.abs(themaze.getEnd().row() - or) + Math.abs(themaze.getEnd().col() - oc);
+    }
 
     private int findRow(Location l, int n){
 	return  l.row() + (n%2) * (2-n);
@@ -121,6 +104,21 @@ public class MazeSolver{
         return  l.col() + ((n+1)%2) * (n-3);
     }
 
+    private ArrayList<Location> theneighbors(Location check){
+	ArrayList<Location> thelist = new ArrayList<Location>();
+	int[][] possibles = { {1,0},{-1,0},{0,1},{0,-1}};
+
+	for(int[]possible : possibles){
+	    if(themaze.get(check.row() + possible[0], check.col() + possible[1]) == ' '){
+		thelist.add(new Location(check.row()+possible[0], check.col()+possible[1], check, dToStart(check.row()+possible[0], check.col()+possible[1]),dToGoal(check.row()+possible[0], check.col()+possible[1]),astar));
+	    }
+	}
+	return thelist;
+    }
+
+
+
+    
     public String toString(){
 	if (toanimate){
 	    return themaze.toString(200);
@@ -132,7 +130,7 @@ public class MazeSolver{
 
     public static void main(String[] args){
 	MazeSolver t = new MazeSolver("data2.txt",true);
-	t.solve(0);
+	t.solve(2);
 	System.out.println(t);
     }
 }
