@@ -56,6 +56,7 @@ public class MazeSolver{
 	    
 	    if (i.getDistanceToGoal() == 0){
 		//	trace(i);
+	        themaze.set(i.row(),i.col(),'E');
 		while(i.hasPrevious()){
 		    i = i.getPrevious();
 		    themaze.set(i.row(),i.col(),'@');
@@ -64,7 +65,6 @@ public class MazeSolver{
 		    }
 		}
 		themaze.set(themaze.getStart().row(), themaze.getStart().col(), 'S');
-		themaze.set(themaze.getEnd().row(),themaze.getStart().row(),'E');
 		if (toanimate){
 		    System.out.println(themaze.toString(50));
 		}
