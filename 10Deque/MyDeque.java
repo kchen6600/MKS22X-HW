@@ -15,8 +15,8 @@ public class MyDeque{
 	bigger = new String[dequeary.length *2];
 	int i = 0;
 	for (int j = front; j < size+front; j++){
-	    int ind = i % dequeary.length;
-	    bigger[j] = dequeary[i];
+	    int ind = j % dequeary.length;
+	    bigger[j] = dequeary[ind];
 	    i+=1;
 	}
 	dequeary = bigger;
@@ -34,13 +34,18 @@ public class MyDeque{
 	}
 	if (size != 0){
 	    if(front == 0){
+		dequeary[dequeary.length - 1]= str;
 		front = dequeary.length - 1;
 	    }
 	    else{
+		dequeary[front-1] = str;
 		front -=1;
 	    }
 	}
-	dequeary[front] = str;
+	if (size == 0){
+	    dequeary[0] = str;
+	}
+	//	dequeary[front] = str;
 	size += 1;
 	
     }
@@ -62,7 +67,7 @@ public class MyDeque{
 
     //retrieve and remove the element from the specified side
     public String removeFirst(){
-	if (size!= 0){
+	if (size != 0){
 	    String removed = dequeary[front];
 	    front = (front + 1) % (dequeary.length);
 	    size -=1;
